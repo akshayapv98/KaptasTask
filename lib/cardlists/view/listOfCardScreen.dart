@@ -36,14 +36,20 @@ class _ListOfCardScreenState extends State<ListOfCardScreen> {
       ),
       body: Consumer<Cardcontroller>(builder: (context, cardlist, _) {
         log("-------------${cardlist.cardlists.length}");
-        return ListView.builder(
-            shrinkWrap: true,
-            itemCount: cardlist.cardlists.length,
-            itemBuilder: (context, index) {
-              return CardWidget(
-                cardModel: cardlist.cardlists[index],
-              );
-            });
+        return cardlist.isLoading == true
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              )
+            : ListView.builder(
+                shrinkWrap: true,
+                itemCount: cardlist.cardlists.length,
+                itemBuilder: (context, index) {
+                  return CardWidget(
+                    cardModel: cardlist.cardlists[index],
+                  );
+                });
       }),
     );
   }
